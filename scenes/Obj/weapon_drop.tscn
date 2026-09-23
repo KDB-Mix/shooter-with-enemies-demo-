@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1dc27ufqjm11"]
+
+[ext_resource type="Script" uid="uid://70viv1um8kcb" path="res://scripts/objects/WeaponDrop.cs" id="1_724m1"]
+[ext_resource type="Texture2D" uid="uid://yuahabsrgxsi" path="res://Sprites/Guns/ChatGPT Image Jul 18, 2025, 04_22_02 PM.png" id="1_cqtly"]
+[ext_resource type="Texture2D" uid="uid://bwknn8q4psld4" path="res://Sprites/Guns/ChatGPT Image Jul 20, 2025, 12_09_37 PM.png" id="2_724m1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2m7i"]
+size = Vector2(1000, 371.429)
+
+[node name="WeaponDrop" type="Area2D"]
+z_index = 2
+scale = Vector2(0.07, 0.07)
+collision_mask = 2
+script = ExtResource("1_724m1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(200, 0)
+shape = SubResource("RectangleShape2D_r2m7i")
+
+[node name="Pistol" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(100, 0)
+texture = ExtResource("1_cqtly")
+region_enabled = true
+region_rect = Rect2(306, 165, 449, 305)
+
+[node name="Auto rifle" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(128.571, 0)
+texture = ExtResource("1_cqtly")
+region_enabled = true
+region_rect = Rect2(96, 564, 864, 327)
+
+[node name="Shot Gun" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(200, 0)
+texture = ExtResource("2_724m1")
+region_enabled = true
+region_rect = Rect2(22, 346, 990, 348)

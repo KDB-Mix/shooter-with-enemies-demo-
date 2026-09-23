@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuucug0ld54ig"]
+
+[ext_resource type="Texture2D" uid="uid://yuahabsrgxsi" path="res://Sprites/Guns/ChatGPT Image Jul 18, 2025, 04_22_02 PM.png" id="1_ln5k0"]
+[ext_resource type="Script" uid="uid://dupgs0h2p3upb" path="res://scripts/objects/Gun.cs" id="1_nx8ub"]
+[ext_resource type="Texture2D" uid="uid://bwknn8q4psld4" path="res://Sprites/Guns/ChatGPT Image Jul 20, 2025, 12_09_37 PM.png" id="3_1qqck"]
+
+[node name="Gun" type="Node2D"]
+scale = Vector2(0.07, 0.07)
+script = ExtResource("1_nx8ub")
+
+[node name="Pistol" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(100, 0)
+texture = ExtResource("1_ln5k0")
+region_enabled = true
+region_rect = Rect2(306, 165, 449, 305)
+
+[node name="Marker2D" type="Marker2D" parent="Pistol"]
+position = Vector2(185.714, -100)
+
+[node name="Auto rifle" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(128.571, 0)
+texture = ExtResource("1_ln5k0")
+region_enabled = true
+region_rect = Rect2(96, 564, 864, 327)
+
+[node name="Marker2D" type="Marker2D" parent="Auto rifle"]
+position = Vector2(357.143, -71.4286)
+
+[node name="Shot Gun" type="Sprite2D" parent="."]
+position = Vector2(200, 0)
+texture = ExtResource("3_1qqck")
+region_enabled = true
+region_rect = Rect2(22, 346, 990, 348)
+
+[node name="Marker2D" type="Marker2D" parent="Shot Gun"]
+position = Vector2(457.143, -85.7143)

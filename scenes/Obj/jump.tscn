@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4d3b1t8g71do"]
+
+[ext_resource type="Script" uid="uid://bybejwhgsso3w" path="res://scripts/objects/Jump.cs" id="1_ljqm2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ejpq1"]
+size = Vector2(6, 8)
+
+[node name="Jump" type="Area2D"]
+collision_mask = 5
+script = ExtResource("1_ljqm2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.73107, 1.73107)
+shape = SubResource("RectangleShape2D_ejpq1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

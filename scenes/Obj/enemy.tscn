@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://q2lue6edp6yw"]
+
+[ext_resource type="Script" uid="uid://bdto3bjxu1jd3" path="res://scripts/objects/Enemy.cs" id="1_r2yxq"]
+[ext_resource type="PackedScene" uid="uid://cmb5gttsb02ul" path="res://scenes/Obj/projectileEnemy.tscn" id="2_bqkqa"]
+[ext_resource type="Script" uid="uid://dfah1nyxb3r7b" path="res://scripts/objects/HitArea.cs" id="2_hllhu"]
+[ext_resource type="PackedScene" uid="uid://kgaschhw0wmt" path="res://scenes/Obj/drop.tscn" id="3_wb4c7"]
+[ext_resource type="Script" uid="uid://c4v71hwavisae" path="res://scripts/objects/IdleTimer.cs" id="4_vtvq1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4g58"]
+radius = 17.0
+height = 54.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2yxq"]
+size = Vector2(40, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqkqa"]
+size = Vector2(40, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bqkqa"]
+radius = 377.584
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtvq1"]
+radius = 488.037
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("RightPlayerDetector", "LeftPlayerDetector", "Projectilespawn", "Cooldowntimer", "JumpCooldown", "IdleTimer", "WalkTimer")]
+collision_layer = 4
+script = ExtResource("1_r2yxq")
+JumpVelocity = -1200.0
+RightPlayerDetector = NodePath("rightPLayerDetector")
+LeftPlayerDetector = NodePath("leftPlayerDetector")
+ProjectileScene = ExtResource("2_bqkqa")
+Projectilespawn = NodePath("Marker2D")
+Cooldowntimer = NodePath("Cooldown")
+JumpCooldown = NodePath("JumpCooldown")
+IdleTimer = NodePath("IdleTimer")
+WalkTimer = NodePath("WalkTimer")
+dropScene = ExtResource("3_wb4c7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -57.0
+offset_right = 20.0
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -27)
+shape = SubResource("CapsuleShape2D_s4g58")
+
+[node name="Hit area" type="Area2D" parent="."]
+script = ExtResource("2_hllhu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit area"]
+position = Vector2(0, -28.5)
+shape = SubResource("RectangleShape2D_r2yxq")
+
+[node name="leftPlayerDetector" type="RayCast2D" parent="."]
+position = Vector2(0, -28)
+target_position = Vector2(-400, 0)
+collision_mask = 2
+
+[node name="rightPLayerDetector" type="RayCast2D" parent="."]
+position = Vector2(0, -28)
+target_position = Vector2(400, 0)
+collision_mask = 2
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -28)
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="JumpDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDetector"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_bqkqa")
+
+[node name="JumpCooldown" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="followPlayerArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="followPlayerArea"]
+position = Vector2(0, -27)
+shape = SubResource("CircleShape2D_bqkqa")
+
+[node name="exitFollowArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exitFollowArea"]
+position = Vector2(0, -23)
+shape = SubResource("CircleShape2D_vtvq1")
+
+[node name="IdleTimer" type="Timer" parent="."]
+script = ExtResource("4_vtvq1")
+
+[node name="WalkTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="body_entered" from="JumpDetector" to="." method="_on_jump_detector_body_entered"]
+[connection signal="body_exited" from="JumpDetector" to="." method="_on_jump_detector_body_exited"]
+[connection signal="timeout" from="JumpCooldown" to="." method="_on_jump_cooldown_timeout"]
+[connection signal="body_entered" from="followPlayerArea" to="." method="_on_follow_player_area_body_entered"]
+[connection signal="body_exited" from="followPlayerArea" to="." method="_on_follow_player_area_body_exited"]
+[connection signal="body_exited" from="exitFollowArea" to="." method="_on_exit_follow_area_body_exited"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="tree_entered" from="IdleTimer" to="." method="_on_idle_timer_tree_entered"]
+[connection signal="timeout" from="WalkTimer" to="." method="_on_walk_timer_timeout"]

@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://ce7i77s81ct4k"]
+
+[ext_resource type="Script" uid="uid://dujhxt14aduo5" path="res://scripts/UI/TouchScreen.cs" id="1_mb7kq"]
+[ext_resource type="Texture2D" uid="uid://djr3lrcy8ndwp" path="res://Sprites/UI/ChatGPT Image Jul 19, 2025, 01_51_56 PM.png" id="1_we8y8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb7kq"]
+atlas = ExtResource("1_we8y8")
+region = Rect2(658, 169, 258, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqrvt"]
+atlas = ExtResource("1_we8y8")
+region = Rect2(658, 169, 258, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg4hv"]
+atlas = ExtResource("1_we8y8")
+region = Rect2(658, 169, 258, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iew41"]
+atlas = ExtResource("1_we8y8")
+region = Rect2(103, 572, 381, 262)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6bse"]
+atlas = ExtResource("1_we8y8")
+region = Rect2(539, 572, 382, 262)
+
+[node name="Touch screen" type="CanvasLayer" node_paths=PackedStringArray("Pickup") groups=["touchscreen"]]
+offset = Vector2(-1152, -648)
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, -1152, -648)
+follow_viewport_enabled = true
+script = ExtResource("1_mb7kq")
+Pickup = NodePath("Pickup")
+
+[node name="Left" type="TouchScreenButton" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(241, 602.5)
+rotation = 3.14159
+scale = Vector2(0.4, 0.4)
+texture_normal = SubResource("AtlasTexture_mb7kq")
+action = "left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(309.5, 499.5)
+scale = Vector2(0.4, 0.4)
+texture_normal = SubResource("AtlasTexture_hqrvt")
+action = "right"
+visibility_mode = 1
+
+[node name="Jump" type="TouchScreenButton" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(945, 602.5)
+rotation = 4.71239
+scale = Vector2(0.4, 0.4)
+texture_normal = SubResource("AtlasTexture_pg4hv")
+action = "jump"
+visibility_mode = 1
+
+[node name="Pickup" type="TouchScreenButton" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1098.5, 358)
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+texture_normal = SubResource("AtlasTexture_pg4hv")
+action = "down"
+visibility_mode = 1
+
+[node name="Shoot" type="TouchScreenButton" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(773, 252.5)
+scale = Vector2(0.4, 0.4)
+texture_normal = SubResource("AtlasTexture_iew41")
+action = "shoot"
+visibility_mode = 1
+
+[node name="Change Weapon" type="TouchScreenButton" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(962, 252.5)
+scale = Vector2(0.4, 0.4)
+texture_normal = SubResource("AtlasTexture_c6bse")
+action = "changeWeapon"
+visibility_mode = 1
+
+[connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
+[connection signal="released" from="Left" to="." method="_on_left_released"]
+[connection signal="pressed" from="Right" to="." method="_on_right_pressed"]
+[connection signal="released" from="Right" to="." method="_on_right_released"]
+[connection signal="pressed" from="Jump" to="." method="_on_jump_pressed"]
+[connection signal="released" from="Jump" to="." method="_on_jump_released"]
+[connection signal="pressed" from="Pickup" to="." method="_on_jump_pressed"]
+[connection signal="released" from="Pickup" to="." method="_on_jump_released"]
+[connection signal="pressed" from="Shoot" to="." method="_on_shoot_pressed"]
+[connection signal="released" from="Shoot" to="." method="_on_shoot_released"]
+[connection signal="pressed" from="Change Weapon" to="." method="_on_change_weapon_pressed"]
+[connection signal="released" from="Change Weapon" to="." method="_on_change_weapon_released"]

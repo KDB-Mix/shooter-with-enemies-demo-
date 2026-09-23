@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqnv4co44w1pb"]
+
+[ext_resource type="Script" uid="uid://cujbbe12eannf" path="res://scripts/UI/Credits.cs" id="1_2lgad"]
+
+[node name="Credits" type="Button" node_paths=PackedStringArray("label")]
+theme_override_font_sizes/font_size = 32
+text = "Credits
+"
+script = ExtResource("1_2lgad")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_top = -188.0
+offset_right = 307.0
+offset_bottom = -139.0
+theme_override_font_sizes/font_size = 32
+text = "ChatGPT for guns, buttons, heal and ammo sprites
+Jan Schneider for chests, coins and keys sprites"
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

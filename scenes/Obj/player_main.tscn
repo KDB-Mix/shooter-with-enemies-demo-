@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://do3njeglctayx"]
+
+[ext_resource type="Script" uid="uid://cwyggin1jtqka" path="res://scripts/objects/PlayerMain.cs" id="1_5skk0"]
+[ext_resource type="PackedScene" uid="uid://bo8xil341radk" path="res://scenes/Obj/projectile.tscn" id="2_0sv8x"]
+[ext_resource type="Script" uid="uid://cxvhs12jb2uex" path="res://scripts/objects/HitAreaPlayer.cs" id="3_jgkp5"]
+[ext_resource type="PackedScene" uid="uid://cuucug0ld54ig" path="res://scenes/Obj/gun.tscn" id="4_d23ku"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5skk0"]
+radius = 17.0
+height = 54.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d23ku"]
+size = Vector2(40, 59)
+
+[node name="Player main" type="CharacterBody2D" node_paths=PackedStringArray("BufferTimer", "CyoteTimer", "Projectilespawn", "CooldownTimer", "label", "hitAreaPlayer", "GunSprite") groups=["player"]]
+collision_layer = 2
+script = ExtResource("1_5skk0")
+Speed = 600.0
+JumpVelocity = -1000.0
+BufferTimer = NodePath("Buffer Timer")
+CyoteTimer = NodePath("Cyote Timer")
+Projectile = ExtResource("2_0sv8x")
+Projectilespawn = NodePath("Projectilespawn")
+CooldownTimer = NodePath("Cooldown")
+label = NodePath("Label")
+hitAreaPlayer = NodePath("HitAreaPlayer")
+GunSprite = NodePath("Gun")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -59.0
+offset_right = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -27)
+shape = SubResource("CapsuleShape2D_5skk0")
+
+[node name="Buffer Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Cyote Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Projectilespawn" type="Marker2D" parent="."]
+position = Vector2(0, -33)
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="HitAreaPlayer" type="Area2D" parent="." node_paths=PackedStringArray("DamageCooldown")]
+script = ExtResource("3_jgkp5")
+DamageCooldown = NodePath("../damage_cooldown")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitAreaPlayer"]
+position = Vector2(0, -29.5)
+shape = SubResource("RectangleShape2D_d23ku")
+
+[node name="Label" type="Label" parent="."]
+offset_top = -83.0
+offset_right = 40.0
+offset_bottom = -60.0
+
+[node name="damage_cooldown" type="Timer" parent="."]
+
+[node name="Gun" parent="." instance=ExtResource("4_d23ku")]
+position = Vector2(26, -28)
+
+[connection signal="timeout" from="Buffer Timer" to="." method="_on_buffer_timer_timeout"]
+[connection signal="timeout" from="Cyote Timer" to="." method="_on_cyote_timer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="damage_cooldown" to="HitAreaPlayer" method="_on_damage_cooldown_timeout"]

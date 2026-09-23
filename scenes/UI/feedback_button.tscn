@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://crb8c1n43dusm"]
+
+[ext_resource type="Script" uid="uid://b8y8m31u8fk0t" path="res://scripts/UI/FeedbackButton.cs" id="1_cxfwh"]
+
+[node name="Feedback button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 32
+text = "Feedback"
+script = ExtResource("1_cxfwh")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

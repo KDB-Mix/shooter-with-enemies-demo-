@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://rawxvb8r7ng3"]
+
+[ext_resource type="Texture2D" uid="uid://bxm4h0pevwou3" path="res://Sprites/Objects/Chest.png" id="1_jhy4y"]
+[ext_resource type="Script" uid="uid://cwr48dfv0idwk" path="res://scripts/objects/Chest.cs" id="1_l7d1t"]
+[ext_resource type="PackedScene" uid="uid://d1dc27ufqjm11" path="res://scenes/Obj/weapon_drop.tscn" id="2_53ghg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhy4y"]
+size = Vector2(25, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7d1t"]
+atlas = ExtResource("1_jhy4y")
+region = Rect2(0, 0, 21, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53ghg"]
+atlas = ExtResource("1_jhy4y")
+region = Rect2(21, 0, 21, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wu3sb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7d1t")
+}],
+"loop": false,
+"name": &"Close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53ghg")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 5.0
+}]
+
+[node name="Chest" type="Area2D" node_paths=PackedStringArray("animation", "collision")]
+scale = Vector2(3, 3)
+collision_mask = 2
+script = ExtResource("1_l7d1t")
+WeaponScene = ExtResource("2_53ghg")
+animation = NodePath("AnimatedSprite2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -9.5)
+shape = SubResource("RectangleShape2D_jhy4y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -9)
+sprite_frames = SubResource("SpriteFrames_wu3sb")
+animation = &"Close"
+autoplay = "Close"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
