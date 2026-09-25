@@ -125,9 +125,6 @@ public partial class PlayerMain : CharacterBody2D
 			buffer = false;
 		}
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-
 		HandleMovement();
 		if ((lastDirection.X != direction.X) && (direction.X != 0))
 		{

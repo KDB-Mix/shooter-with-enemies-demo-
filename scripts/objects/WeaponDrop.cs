@@ -72,7 +72,11 @@ public partial class WeaponDrop : Area2D
 						player.currentGun = gunSelected;
 						player.gunID = player.Inventory[player.Inventory.Count - 1];
 					}
-					else player.Inventory[player.gunID] = gunSelected;
+					else{
+						player.Inventory[player.gunID] = gunSelected;
+						player.currentGun = player.Inventory[player.gunID];
+						player.GunSprite.ShowGun(player.Inventory[player.gunID]);
+						}
 					player.GunSprite.ammo[gunSelected] = ammo[gunSelected];
 					touchscreen.Pickup.Visible = false;
 					QueueFree();
